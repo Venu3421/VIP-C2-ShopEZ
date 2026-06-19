@@ -1,138 +1,122 @@
 # ShopEZ 🛍️ — Modern MERN Stack E-Commerce Platform
 
-ShopEZ is a feature-rich, high-performance e-commerce platform built using the MERN stack (MongoDB, Express, React, Node.js). It features a polished customer storefront and a comprehensive, dynamic administrative portal for managing catalogs, orders, and customer accounts.
+[![MERN Stack](https://img.shields.io/badge/MERN-Stack-blue.svg)](https://mongodb.com)
+[![React](https://img.shields.io/badge/React-19.2-cyan.svg)](https://react.dev)
+[![Node.js](https://img.shields.io/badge/Node.js-v18+-green.svg)](https://nodejs.org)
+[![Express](https://img.shields.io/badge/Express-4.21-lightgrey.svg)](https://expressjs.com)
+[![MongoDB](https://img.shields.io/badge/MongoDB-Atlas-green.svg)](https://www.mongodb.com/atlas)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind-CSS%204.3-blueviolet.svg)](https://tailwindcss.com)
+
+ShopEZ is a lightweight, feature-rich, and high-performance e-commerce platform engineered using the MERN stack (MongoDB, Express, React, Node.js). Designed for small-to-medium retail enterprises (SMEs), it delivers a premium customer storefront and a streamlined administrative cockpit to manage catalogs, track orders, and monitor metrics without administrative overhead.
+
+> 📖 **Detailed SDLC Documentation**: For deep-dive specifications on empathy mapping, sprint planning, MVC patterns, database structures, and testing matrices, read the complete **[Project documentation.md](Project%20documentation.md)**.
 
 ---
 
-## 🌟 Key Features
+## 🌟 Key Platform Features
 
 ### 🛒 Customer Storefront
-- **Responsive Catalog**: Browse products across multiple categories (e.g., Electronics, Fashion, Home Decor) with optimized grid sizes.
-- **Persistent Cart & Wishlist**: Scoped per-user wishlist items and shopping cart state stored locally.
-- **Protected Wishlist**: Seamlessly redirects logged-out users to log in if they try to access wishlist features.
-- **Dynamic Product Details**: Clean product pages featuring size selectors (hidden dynamically for Electronics and Home Decor), high-quality image previews, and automated similar products recommendations.
-- **Checkout Process**: Streamlined checkout system with local currency conversion (Indian Rupees - ₹).
+*   **Adaptive Product Details**: The user interface reads categories dynamically, automatically hiding apparel sizing grids and selectors when displaying items like **Electronics** or **Home Decor**.
+*   **Persistent Shopping State**: Shopping cart variables and wishlists are synced with browser LocalStorage and mapped directly to global React contexts to prevent cart loss on page refreshes.
+*   **Protected Wishlists**: Automated route guards block unauthenticated users, redirecting them to log in before adding items to wishlists.
+*   **Smart Recommendations**: Dynamic "similar products" sliders automatically suggest items matching the active product's category.
+*   **Seamless Checkout Flow**: Lightweight, single-page customer checkout supporting local currency rendering (INR - ₹).
 
 ### 💼 Admin Portal
-- **Dashboard Metrics**: Real-time visualization of Total Revenue, New Orders, Active Products, and Total Customers.
-- **Interactive Orders Table**: Track recent orders, review detailed customer actions, and execute quick updates (e.g., Mark as Shipped, Mark as Delivered, or Cancel Order) with real-time database synchronizations.
-- **Catalog Management**: Admin forms to add/edit products with smart input forms (swaps complex size grids for a single "Stock Quantity" field automatically for Electronics & Home Decor).
-- **Data Export**: Export entire sales and customer order lists into a structured CSV format at the click of a button.
-- **Printable Invoices**: Clean, isolated `@media print` style sheets that strip headers, footers, and dashboard layout elements to print clean physical or PDF receipts.
-- **Automatic Role Redirection**: Protects routes and automatically redirects administrators directly to the Dashboard on login or root access.
+*   **Real-Time Analytics Dashboard**: Visual indicators track business health metrics (Total Revenue, Active Orders, Total Products, and Customer Profiles).
+*   **Interactive Orders Table**: Review detailed order structures, customer metrics, and execute instant status updates (e.g., Mark as Shipped, Mark as Delivered, or Cancel Order).
+*   **Smart Catalog Management**: Dynamic forms hide size selection grids and reveal a single "Stock Quantity" input automatically for non-apparel categories.
+*   **Isolated Invoice Printing**: Custom print sheets leveraging isolated `@media print` CSS rules automatically strip dashboard menus, buttons, and headers, rendering clean physical receipts.
+*   **Role-Based Route Guarding**: Detects JWT states and automatically redirects administrators directly to the `/admin` workspace upon login.
+*   **Data Export**: Single-click actions compile database logs and export orders list to structured CSV files.
 
 ---
 
-## 💻 Tech Stack
-
-- **Frontend**: React (Vite, Context API for Auth, Cart, and Wishlist state management)
-- **Styling**: Tailwind CSS
-- **Backend**: Node.js, Express.js
-- **Database**: MongoDB (Mongoose ODM)
-- **Icons**: Google Material Symbols
-
----
-
-## 📂 Project Structure
+## 📂 Repository Folder Structure
 
 ```text
 ShopEZ/
-├── client/                 # Frontend React Application
+├── client/                 # Frontend React Application (Vite compiler)
 │   ├── src/
 │   │   ├── components/     # Reusable layout & common UI components
 │   │   ├── context/        # React Context providers (Auth, Cart, Wishlist)
-│   │   ├── pages/          # Page views (Admin Dashboard, Checkout, Cart, Products, etc.)
+│   │   ├── pages/          # View pages (Admin Dashboard, Checkout, Cart, Products, etc.)
 │   │   ├── routes/         # Protected and public routing definitions
-│   │   ├── services/       # Axios API integrations
-│   │   ├── index.css       # Core Tailwind theme configuration
-│   │   └── main.jsx        # App entry point
-│   ├── vite.config.js
-│   └── package.json
+│   │   ├── services/       # Axios API client integrations
+│   │   ├── index.css       # Core Tailwind CSS imports & theme directives
+│   │   └── main.jsx        # React entry file
+│   ├── vite.config.js      # Vite compilation configuration
+│   └── package.json        # Frontend scripts & dependencies
 │
-├── server/                 # Backend REST API Application
-│   ├── config/             # DB connection config
-│   ├── controllers/        # Express request controllers (Auth, Products, Orders, Admin)
-│   ├── models/             # Mongoose schemas (User, Product, Order, Cart)
-│   ├── routes/             # Express route mappings
+├── server/                 # Backend REST API Application (Node.js/Express)
+│   ├── config/             # MongoDB Atlas connection setup
+│   ├── controllers/        # Express request handlers (Auth, Catalog, Orders, Admin)
+│   ├── models/             # Mongoose schemas (User, Admin, Product, Order, Cart)
+│   ├── routes/             # Express API route configurations
+│   ├── middleware/         # Custom JWT verification & role validation middleware
 │   ├── seed.js             # Initial database seeding script
-│   ├── index.js            # Server entry point
-│   └── package.json
+│   ├── index.js            # Node server bootstrapper
+│   └── package.json        # Backend dependencies & npm scripts
 │
-└── MERN Phase Wise/        # Phase-wise Project Documentation & Templates
-    ├── Phase Wise Templets/ # SDLC templates for each phase (Brainstorming, Design, Dev, etc.)
-    └── Project Documentation/# MERN stack project reference materials & guidebooks
+└── MERN Phase Wise/        # Project planning, brainstorming & design artifacts (PDFs)
 ```
 
 ---
 
-## 📁 MERN Phase-Wise Documentation
-
-The project includes structured SDLC planning and template files located in the `MERN Phase Wise/` directory, mapping out the entire lifecycle of the ShopEZ platform:
-
-1. **Brainstorming & Ideation Phase**: Empathy maps, problem statements, and brainstorming templates.
-2. **Requirement Analysis**: Data Flow Diagrams (DFDs), User Stories, and technology stack templates.
-3. **Project Planning Phase**: Comprehensive project planning schedules and timelines.
-4. **Project Design Phase**: Architecture layouts, proposed solution templates, and problem-solution fit sheets.
-5. **Project Development & Testing**: User Acceptance Testing (UAT) templates and specifications.
-6. **Comprehensive Documentation**: Complete guide on Full Stack Development with the MERN stack (`Full Stack Development with MERN.pdf`).
-
----
-
-## 🚀 Installation & Local Setup
+## 🚀 Getting Started & Local Setup
 
 ### Prerequisites
-- Node.js (v18+ recommended)
-- MongoDB running locally or a MongoDB Atlas connection string
+*   **Node.js**: `v18.x` or above installed locally.
+*   **MongoDB**: A local MongoDB Community instance running, or a MongoDB Atlas Cloud connection string.
 
-### 1. Clone & Initialize Server
-1. Navigate to the server folder:
-   ```bash
-   cd server
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Create a `.env` file in the `server` directory and fill in your connection details:
-   ```env
-   PORT=5000
-   MONGO_URI=mongodb://localhost:27017/shopez
-   JWT_SECRET=your_jwt_secret_key
-   ```
-4. Seed the database with sample products, categories, and default users (Admin + Customer):
-   ```bash
-   npm run seed
-   ```
-   *Note: This creates an Admin account (`admin@shopez.com` / `admin123`) and a Customer account (`customer@shopez.com` / `customer123`).*
+### 1. Initialize Server Environment
+1.  Navigate into the backend directory:
+    ```bash
+    cd server
+    ```
+2.  Install dependencies:
+    ```bash
+    npm install
+    ```
+3.  Configure your environment parameters. Create a `.env` file in `/server`:
+    ```env
+    PORT=5000
+    MONGO_URI=mongodb://localhost:27017/shopez
+    JWT_SECRET=your_jwt_secret_key
+    ```
+4.  Seed the database with sample products and default credentials:
+    ```bash
+    npm run seed
+    ```
+    *Note: This creates an Admin account (`admin@shopez.com` / `admin123`) and a Customer account (`customer@shopez.com` / `customer123`).*
+5.  Start the backend API server:
+    ```bash
+    npm run dev
+    ```
 
-5. Start the backend server:
-   ```bash
-   npm run start
-   ```
-
-### 2. Initialize Client
-1. Open a new terminal and navigate to the client folder:
-   ```bash
-   cd client
-   ```
-2. Install dependencies:
-   ```bash
-   npm install
-   ```
-3. Start the development server:
-   ```bash
-   npm run dev
-   ```
-4. Open your browser and navigate to `http://localhost:3001` to interact with the web app.
+### 2. Initialize Client Environment
+1.  Open a new terminal tab and navigate into the frontend directory:
+    ```bash
+    cd client
+    ```
+2.  Install client dependencies:
+    ```bash
+    npm install
+    ```
+3.  Start the local development server:
+    ```bash
+    npm run dev
+    ```
+4.  Open your browser and navigate to `http://localhost:3001` (or the local server address shown in your console).
 
 ---
 
-## 🛠️ Main NPM Scripts
+## 🛠️ Development Scripts
 
-### Backend (`/server`)
-- `npm run start` or `node index.js`: Runs the API server.
-- `npm run seed`: Clears existing records and seeds fresh demo catalogs and credentials.
-
-### Frontend (`/client`)
-- `npm run dev`: Starts the local development server with Hot Module Replacement (HMR).
-- `npm run build`: Compiles and bundles production-ready assets into the `dist/` directory.
+*   **Backend (`/server`)**:
+    *   `npm run dev`: Bootstraps the Express API server with automatic reload (via `nodemon`).
+    *   `npm run start`: Runs the Node server in production state.
+    *   `npm run seed`: Clears active collections and inserts seed datasets.
+*   **Frontend (`/client`)**:
+    *   `npm run dev`: Starts the local hot-reloading development server.
+    *   `npm run build`: Compiles production-optimized assets inside the `dist/` directory.
